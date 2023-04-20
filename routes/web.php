@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Admin\PretController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -19,13 +20,7 @@ Route::get('/', function () {
 });
 
 
-Route::prefix('/blog')->controller(BlogController::class)->name('blog.')->group(function() {
-        
-    Route::get('/','index')->name('index');
-    
-    Route::get('/{slug}/{id}','show')->where([
-        "id" => '[0-9]+',
-        "slug" => '[a-z0-9\-]+'
-    ])->name('show'); 
-
-});
+Route::prefix('/admin')->name('admin.')->group(function() {
+    Route::post('zobi',[PretController::class,'store'])->name('zobi');
+    Route::resource('pret',PretController::class)->except(['show']);
+});   
