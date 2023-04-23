@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\PretFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Pret;
+use App\Models\TypePret;
 use Illuminate\Support\Facades\Log;
 
 class PretController extends Controller
@@ -34,15 +35,25 @@ class PretController extends Controller
     {
         Log::info('PretController.create:');
 
+        $typePrets = TypePret::all();
+
+        $typePretItems = TypePret::pluck('name', 'id');
+
         $pret = new Pret() ;
         $pret->fill([
             'dureeaa' => 20,
             'dureemm' => 0,
-            'taux' => 3
+            'taux' => 3,
+            'type_pret_id' => 1
         ]);
+       
+        $typePretselectedID = $pret->type_pret_id;
+
 
         return view('admin.prets.form',[
-            'pret' =>  $pret
+            'pret' =>  $pret,
+            'typePretItems' => $typePretItems,
+            'typePretselectedID' => $typePretselectedID
         ]);
     }
 
@@ -54,7 +65,7 @@ class PretController extends Controller
      */
     public function store(PretFormRequest $request)
     {
-
+        dd($request);
         $pret = Pret::create($request->validated());
  
         return redirect()->route('admin.pret.index')->with('success', 'Le prêt a été créé');

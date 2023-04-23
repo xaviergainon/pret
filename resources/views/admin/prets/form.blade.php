@@ -7,13 +7,12 @@
 
     <h1>@yield('title')</h1>
 
-    <form class="vstack gap-2" action="{{ route($pret->exists ? 'admin.pret.update' : 'admin.zobi' , $pret) }}"  method="post" >
+    <form class="vstack gap-2" action="{{ route($pret->exists ? 'admin.pret.update' : 'admin.pret.store' , $pret) }}"  method="post" >
 
         @csrf
         @method($pret->exists ? 'put' : 'post')
-
     <div class="row">
-        @include('shared.input', ['label' => 'Type de prêt', 'name' => 'typepret', 'value' => $pret->typepret])
+            @include('shared.input', ['label' => 'Type de prêt', 'type' => 'select' , 'name' => 'type_pret_id', 'items' => $typePretItems, 'selectedID' => $typePretselectedID])
         <div class="col row">
             @include('shared.input', ['label' => 'Montant du prêt', 'name' => 'montant', 'value' => $pret->montant])
             @include('shared.input', ['label' => 'Nombre d année', 'name' => 'dureeaa', 'value' => $pret->dureeaa])

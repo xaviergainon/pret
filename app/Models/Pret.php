@@ -10,6 +10,7 @@ class Pret extends Model
     use HasFactory;
 
     protected $fillable = [
+        'type_pret_id',
         'typepret',
         'montant' ,
         'dureeaa' ,

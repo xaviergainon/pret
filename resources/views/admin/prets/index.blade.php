@@ -25,8 +25,8 @@
         <tbody>
             @foreach($prets as $pret)
                 <tr>
-                    <td>{{ $pret->typepret }}</td>
-                    <td>{{ number_format($pret->montant,thousands_separator: ' ') }} €</td>
+                    <td>{{ $pret->TypePret->name }}</td>
+                    <td>{{ number_format($pret->montant,thousands_separator: ' ') }}€</td>
                     <td>{{ $pret->dureeaa }}</td>
                     <td>{{ $pret->dureemm }}</td>
                     <td>{{ $pret->taux }}</td>
