@@ -12,15 +12,29 @@
         @csrf
         @method($pret->exists ? 'put' : 'post')
     <div class="row">
-            @include('shared.input', ['label' => 'Type de prêt', 'type' => 'select' , 'name' => 'type_pret_id', 'items' => $typePretItems, 'selectedID' => $typePretselectedID])
-        <div class="col row">
-            @include('shared.input', ['label' => 'Montant du prêt', 'name' => 'montant', 'value' => $pret->montant])
+            <div class="col">  
+                @include('shared.input', ['label' => 'Type de prêt', 'type' => 'select' , 'name' => 'type_pret_id', 'items' => $typePretItems, 'selectedID' => $typePretselectedID])
+            </div>
+            <div class="col">
+                @include('shared.input', ['label' => 'Montant du prêt', 'name' => 'montant', 'value' => $pret->montant])
+            </div>
+          
+    </div>
+    <div class="row">
+       <div class="col">
             @include('shared.input', ['label' => 'Nombre d année', 'name' => 'dureeaa', 'value' => $pret->dureeaa])
+        </div>
+        <div class="col">
             @include('shared.input', ['label' => 'Nombre de mois', 'name' => 'dureemm', 'value' => $pret->dureemm])
-            @include('shared.input', ['label' => 'Taux sans assurance', 'name' => 'taux', 'value' => $pret->taux])
+         
         </div>
     </div>
-
+    <div class="row">
+        <div class="col">
+        @include('shared.input', ['label' => 'Taux sans assurance', 'name' => 'taux', 'value' => $pret->taux])
+        </div>
+    </div>
+    
     <div>
         <button class="btn btn-primary">
             @if($pret->exists)

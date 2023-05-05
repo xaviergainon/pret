@@ -1,7 +1,7 @@
 @extends('admin.admin')
 
 
-@section('title', 'Tous les prêt')
+@section('title', 'Tous les prêts')
 
 @section('content')
 
@@ -30,7 +30,16 @@
                     <td>{{ $pret->dureeaa }}</td>
                     <td>{{ $pret->dureemm }}</td>
                     <td>{{ $pret->taux }}</td>
-                    <td> </td>
+                    <td> 
+                        <div class="d-flex gap-2 w-100 justify-content-end">
+                            <a href="{{ route('admin.pret.edit',$pret) }}" class="btn btn-primary">Editer</a>
+                            <form action="{{ route('admin.pret.destroy', $pret) }} }}">
+                                    @csrf
+                                    @method("delete")
+                                    <button class="btn btn-danger">Suppimer</button>
+                            </form>
+                        </div>
+                    </td>
                     
                 </tr>
             @endforeach

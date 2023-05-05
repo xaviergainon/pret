@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Pret;
 use App\Models\TypePret;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Log;
 
 class PretController extends Controller
@@ -33,9 +34,10 @@ class PretController extends Controller
      */
     public function create()
     {
+        //dd(Session()->all());
         Log::info('PretController.create:');
 
-        $typePrets = TypePret::all();
+        //$typePrets = TypePret::all();
 
         $typePretItems = TypePret::pluck('name', 'id');
 
@@ -64,8 +66,8 @@ class PretController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PretFormRequest $request)
-    {
-        dd($request);
+    {// dd($request);
+        Log::info('PretController.store:');
         $pret = Pret::create($request->validated());
  
         return redirect()->route('admin.pret.index')->with('success', 'Le prêt a été créé');
@@ -78,9 +80,18 @@ class PretController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Pret $pret)
+    {   Log::info('PretController.edit:');
+        
+
+        $typePretselectedID = $pret->type_pret_id;
+        $typePretItems = TypePret::pluck('name', 'id');
+
+        return view('admin.prets.form',[
+            'pret' =>  $pret,
+            'typePretItems' => $typePretItems,
+            'typePretselectedID' => $typePretselectedID
+        ]);
     }
 
     /**
@@ -90,9 +101,11 @@ class PretController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PretFormRequest $request, Pret $pret)
     {
-        //
+        $pret->update($request->validated());
+
+        return redirect()->route('admin.pret.index')->with('success', 'Le prêt a été modifié');
     }
 
     /**

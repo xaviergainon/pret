@@ -26,7 +26,7 @@ class PretFormRequest extends FormRequest
     {
         Log::info('PretFormRequest.rules');
         return [
-            'typepret'  => ['required'],
+            'type_pret_id'  => ['required'],
             'montant'   => ['required','numeric', 'min:10000'],
             'dureeaa'   => ['required','integer', 'min:1'],
             'dureemm'   => ['required','integer'],
